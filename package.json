@@ -1,0 +1,24 @@
+{
+  "name": "pam-if3026",
+  "version": "0.1.0",
+  "description": "IF3026 Pengembangan Aplikasi Mobile - ITERA",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neszha/PAM-IF3026.git"
+  },
+  "author": "Fanesa Hadi Pramana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neszha/PAM-IF3026/issues"
+  },
+  "homepage": "https://github.com/neszha/PAM-IF3026#readme",
+  "devDependencies": {
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2"
+  }
+}
