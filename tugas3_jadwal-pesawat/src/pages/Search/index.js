@@ -10,7 +10,7 @@ class Search extends Component {
             <View style={styles.wrapper}>
                 <View style={styles.backgroundBanner} />
                 <Header />
-                <CardForms />
+                <CardForms navigation={this.props.navigation}/>
                 <Footer />
             </View>
         );

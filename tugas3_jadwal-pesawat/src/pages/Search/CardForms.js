@@ -3,6 +3,10 @@ import { StyleSheet, Button, View } from 'react-native';
 import FormTextInput from './FormTextInput.js';
 
 class CardForms extends Component {
+    search() {
+        this.props.navigation.navigate('SearchResult');
+    }
+
     render() {
         return (
             <View style={styles.wrapper}>
@@ -17,7 +21,7 @@ class CardForms extends Component {
                         <FormTextInput label="Tanggal Keberangkatan" placeholder="Masukan tanggal keberangkatan" icon="calendar" />
                     </View>
                     <View style={[styles.mb3]}>
-                        <Button title="CARI" color="#E47D24" />
+                        <Button title="CARI" color="#E47D24" onPress={() => this.search()} />
                     </View>
                 </View>
             </View>

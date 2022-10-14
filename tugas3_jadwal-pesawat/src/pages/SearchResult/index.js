@@ -7,7 +7,7 @@ class SearchResult extends Component {
     render() {
         return (
             <View style={styles.wrapper}>
-                <Header />
+                <Header navigation={this.props.navigation}/>
 
                 <View style={styles.head}>
                     <Text style={[styles.textWhite]}>Hasil Pencarian Keberangkatan</Text>

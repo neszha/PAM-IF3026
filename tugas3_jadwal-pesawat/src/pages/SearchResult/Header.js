@@ -7,10 +7,14 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome.js';
 import info from '../../store/info.js';
 
 class Header extends Component {
+    backToSearch() {
+        this.props.navigation.navigate('Search');
+    }
+
     render() {
         return (
             <View style={styles.wrapper}>
-                <TouchableHighlight style={styles.iconWrapper} onPress={() => {}} underlayColor="#5e9833">
+                <TouchableHighlight style={styles.iconWrapper} onPress={() => this.backToSearch()} underlayColor="#5e9833">
                     <Ionicons style={styles.icon} size={30} name="arrow-back" />
                 </TouchableHighlight>
                 <View>
