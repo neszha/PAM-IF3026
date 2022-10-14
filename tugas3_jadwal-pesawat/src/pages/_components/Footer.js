@@ -6,7 +6,7 @@ class Footer extends Component {
     render() {
         return (
             <View style={styles.wrapper}>
-                <Text>Copyright {info.author.name} - {info.author.nim}</Text>
+                <Text style={{ textAlign: 'center' }}>Copyright {info.author.name} - {info.author.nim}</Text>
             </View>
         );
     }
@@ -14,8 +14,9 @@ class Footer extends Component {
 
 const styles = StyleSheet.create({
     wrapper: {
+        flex: 1,
         position: 'absolute',
-        bottom: 0,
+        bottom: 8,
         width: '100%',
         textAlign: 'center',
         paddingVertical: 12,

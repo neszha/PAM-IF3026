@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     wrapper: {
         marginBottom: 0,
         position: 'absolute',
+        marginTop: 28,
         zIndex: 2,
         top: 0,
         left: 0,

@@ -3,12 +3,14 @@ import { View, StyleSheet } from 'react-native';
 import Header from './Header.js';
 import CardForms from './CardForms.js';
 import Footer from '../_components/Footer.js';
+import NotificationScreen from '../_components/NotificationScreen.js';
 
 class Search extends Component {
     render() {
         return (
             <View style={styles.wrapper}>
                 <View style={styles.backgroundBanner} />
+                <NotificationScreen />
                 <Header />
                 <CardForms navigation={this.props.navigation}/>
                 <Footer />
@@ -19,11 +21,9 @@ class Search extends Component {
 
 const styles = StyleSheet.create({
     wrapper: {
+        flex: 1,
         position: 'relative',
         backgroundColor: '#F0F0F0',
-        height: '100vh',
-        width: '100%',
-        paddingTop: 48,
     },
     backgroundBanner: {
         height: 330,

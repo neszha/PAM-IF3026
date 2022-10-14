@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
         marginBottom: 0,
         position: 'absolute',
         zIndex: 2,
+        marginTop: 28,
         top: 0,
         left: 0,
         width: '100%',
