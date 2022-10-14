@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     },
     backgroundBanner: {
         backgroundColor: '#6FB23E',
-        height: 350,
+        height: 320,
         borderBottomLeftRadius: 16,
         borderBottomRightRadius: 16,
         marginTop: -48,

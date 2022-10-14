@@ -28,15 +28,22 @@ class CardForms extends Component {
 const styles = StyleSheet.create({
     wrapper: {
         paddingHorizontal: 34,
-        marginTop: -260,
+        marginTop: -240,
     },
     mb3: {
-        marginBottom: 24,
+        marginBottom: 18,
     },
     card: {
         backgroundColor: '#fff',
         padding: 18,
         borderRadius: 8,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 3, height: 3,
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 8,
+        elevation: 4,
     },
 });
 
