@@ -11,7 +11,7 @@ class Header extends Component {
         return (
             <View style={styles.wrapper}>
                 <TouchableHighlight style={styles.iconWrapper} onPress={() => {}} underlayColor="#5e9833">
-                    <Ionicons style={styles.icon} size={30} name="menu" />
+                    <Ionicons style={styles.icon} size={30} name="arrow-back" />
                 </TouchableHighlight>
                 <View>
                     <Text style={styles.title}>{info.title}</Text>

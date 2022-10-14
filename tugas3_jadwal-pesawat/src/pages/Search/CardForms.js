@@ -28,7 +28,7 @@ class CardForms extends Component {
 const styles = StyleSheet.create({
     wrapper: {
         paddingHorizontal: 34,
-        marginTop: -240,
+        marginTop: 40,
     },
     mb3: {
         marginBottom: 18,

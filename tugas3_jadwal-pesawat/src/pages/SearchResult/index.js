@@ -1,16 +1,19 @@
 import { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Header from './Header.js';
-import CardForms from './CardForms.js';
 import Footer from '../_components/Footer.js';
 
-class Search extends Component {
+class SearchResult extends Component {
     render() {
         return (
             <View style={styles.wrapper}>
-                <View style={styles.backgroundBanner} />
                 <Header />
-                <CardForms />
+
+                <View style={styles.head}>
+                    <Text style={[styles.textWhite]}>Hasil Pencarian Keberangkatan</Text>
+                    <Text style={[styles.textWhite]}>(12-13-2002)</Text>
+                </View>
+
                 <Footer />
             </View>
         );
@@ -22,22 +25,19 @@ const styles = StyleSheet.create({
         position: 'relative',
         backgroundColor: '#F0F0F0',
         height: '100vh',
-        width: '100%',
         paddingTop: 48,
     },
-    backgroundBanner: {
-        height: 330,
-        width: '100%',
+    head: {
+        textAlign: 'center',
         backgroundColor: '#6FB23E',
+        paddingVertical: 18,
+        marginTop: -2,
         borderBottomLeftRadius: 8,
         borderBottomRightRadius: 8,
-        marginTop: -48,
-        position: 'absolute',
-
     },
-    textBold: {
-        fontWeight: 'bold',
+    textWhite: {
+        color: '#fff',
     },
 });
 
-export default Search;
+export default SearchResult;
