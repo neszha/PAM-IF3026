@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 8,
         marginTop: -48,
         position: 'absolute',
-
     },
     textBold: {
         fontWeight: 'bold',

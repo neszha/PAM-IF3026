@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Jadwal Pesawat",
+    "name": "HILING.ID",
     "slug": "jadwal-pesawat",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,10 +24,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#F0F0F0"
-      }
+      },
+      "package": "com.neszha.hiling"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ecc29cfc-2080-4296-bf69-2d15100e95cc"
+      }
     }
   }
 }
