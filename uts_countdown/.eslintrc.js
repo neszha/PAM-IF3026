@@ -17,6 +17,7 @@ module.exports = {
         'react',
     ],
     rules: {
+        'global-require': 'off',
         'react/prop-types': 'off',
         'class-methods-use-this': 'off',
         'react/react-in-jsx-scope': 'off',
