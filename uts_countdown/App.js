@@ -2,7 +2,8 @@ import { Component } from 'react';
 import * as Font from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
-import Welcome from './src/views/Welcome.jsx';
+// import Welcome from './src/views/Welcome.jsx';
+import Home from './src/views/Home.jsx';
 
 class App extends Component {
     state = {
@@ -28,7 +29,7 @@ class App extends Component {
         return (
             <View style={st.container}>
                 <StatusBar style="auto" />
-                <Welcome />
+                <Home />
             </View>
         );
     }
