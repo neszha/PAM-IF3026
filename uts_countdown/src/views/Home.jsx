@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import {
     View, Text, Button, Card,
 } from 'react-native-ui-lib';
-import FontAwesome5 from 'react-native-vector-icons/AntDesign.js';
+import AntDesign from 'react-native-vector-icons/AntDesign.js';
 import { btn, typ } from '../styles/index.js';
 
 class Home extends Component {
@@ -20,14 +20,14 @@ class Home extends Component {
                 <View style={st.cardListContainer}>
                     <Card style={st.card} onPress={() => console.log('pressed')}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <FontAwesome5 style={{ marginRight: 12 }} name="clockcircle" color='#000' size={20} />
+                            <AntDesign style={{ marginRight: 12 }} name="clockcircle" color='#000' size={20} />
                             <Text style={[typ.h3]}>KUIS 1 PAM - RA</Text>
                         </View>
                         <Text style={[typ.gray]}>00.00.00:56</Text>
                     </Card>
                     <Card style={st.card} onPress={() => console.log('pressed')}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <FontAwesome5 style={{ marginRight: 12 }} name="clockcircle" color='#000' size={20} />
+                            <AntDesign style={{ marginRight: 12 }} name="clockcircle" color='#000' size={20} />
                             <Text style={[typ.h3]}>KUIS 1 PAM - RB</Text>
                         </View>
                         <Text style={[typ.gray]}>00.00:56</Text>
