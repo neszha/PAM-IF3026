@@ -1,4 +1,5 @@
+import events from './events.js';
 import durationHelper from './duration.js';
 
-export { durationHelper };
+export { events, durationHelper };
 export default durationHelper;

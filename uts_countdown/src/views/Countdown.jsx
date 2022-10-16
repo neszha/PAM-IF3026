@@ -1,20 +1,43 @@
 import { Component } from 'react';
 import { View, Text } from 'react-native-ui-lib';
-import Feather from 'react-native-vector-icons/Feather.js';
 import { StyleSheet, TouchableOpacity } from 'react-native';
+import Feather from 'react-native-vector-icons/Feather.js';
 import AntDesign from 'react-native-vector-icons/AntDesign.js';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons.js';
 import { btn, typ } from '../styles/index.js';
+import { events } from '../helper/index.js';
 
 class Countdown extends Component {
+    state = {
+        data: {
+            key: null,
+            title: '-',
+            duration: 0,
+        },
+    };
+
     constructor(props) {
         super(props);
+        const { params } = props.route;
         this.navigation = props.navigation;
+        this._loadCountdownData(params.key);
+    }
+
+    async _loadCountdownData(key) {
+        const data = await AsyncStorage.getItem(`countdown:${key}`);
+        if (data) this.setState({ data: JSON.parse(data) });
     }
 
     _toHome() {
         this.navigation.navigate('Home');
+    }
+
+    async _delete() {
+        await AsyncStorage.removeItem(`countdown:${this.state.data.key}`);
+        events.emit('render:countdown-list');
+        this._toHome();
     }
 
     render() {
@@ -28,12 +51,17 @@ class Countdown extends Component {
                         }} activeOpacity={0.6} onPress={() => this._toHome()}>
                             <AntDesign name='arrowleft' color='#000' size={24} />
                         </TouchableOpacity>
-                        <Text style={[typ.h2, typ.center, { flex: 1 }]}>UIS PAM - RA</Text>
+                        <Text style={[typ.h2, typ.center, { flex: 1 }]}>{ this.state.data.title }</Text>
+                        <TouchableOpacity style={{
+                            position: 'absolute', right: 20, top: 15, zIndex: 2,
+                        }} activeOpacity={0.6} onPress={() => this._delete()}>
+                            <Feather name='trash' color='#000' size={24} />
+                        </TouchableOpacity>
                     </View>
                 </View>
 
                 <View>
-                    <Text style={[typ.h1, typ.center, st.counter]}>00.01.15.05</Text>
+                    <Text style={[typ.h1, typ.center, st.counter]}>{ this.state.data.duration }</Text>
                 </View>
 
                 <View style={st.footer}>

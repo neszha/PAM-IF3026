@@ -6,7 +6,7 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { btn, typ } from '../styles/index.js';
-import { durationHelper } from '../helper/index.js';
+import { durationHelper, events } from '../helper/index.js';
 
 class Home extends Component {
     state = {
@@ -17,6 +17,9 @@ class Home extends Component {
         super(props);
         this.navigation = props.navigation;
         this._getCountdownList();
+
+        // Watch events.
+        events.on('render:countdown-list', () => this._getCountdownList());
     }
 
     async _getCountdownList() {
@@ -55,7 +58,9 @@ class Home extends Component {
 
     renderList({ item }, props) {
         const toShowCountdown = () => {
-            props.navigation.navigate('Countdown');
+            props.navigation.navigate('Countdown', {
+                key: item.key,
+            });
         };
 
         return (
