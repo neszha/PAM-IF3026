@@ -4,9 +4,8 @@ import {
     View, Text, Button, Card,
 } from 'react-native-ui-lib';
 import AntDesign from 'react-native-vector-icons/AntDesign.js';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { btn, typ } from '../styles/index.js';
-import { durationHelper, events } from '../helper/index.js';
+import { durationHelper, events, countdownHelper } from '../helper/index.js';
 
 class Home extends Component {
     state = {
@@ -20,13 +19,15 @@ class Home extends Component {
 
         // Watch events.
         events.on('render:countdown-list', () => this._getCountdownList());
+
+        // Interval.
+        setInterval(() => {
+            events.emit('render:countdown-list');
+        }, 1000);
     }
 
     async _getCountdownList() {
-        const allKeys = await AsyncStorage.getAllKeys();
-        const keys = allKeys.filter((item) => item.includes('countdown:'));
-        const values = await AsyncStorage.multiGet(keys);
-        const array = values.map((item) => JSON.parse(item[1]));
+        const array = await countdownHelper.getValues();
         await this.setState({ list: array });
     }
 
@@ -44,7 +45,7 @@ class Home extends Component {
                     <FlatList
                         data={this.state.list}
                         renderItem={(item) => this.renderList(item, this.props)}
-                        keyExtractor={(item) => item.key}
+                        keyExtractor={(item) => item.id}
                     />
                 </SafeAreaView>
 
@@ -58,9 +59,7 @@ class Home extends Component {
 
     renderList({ item }, props) {
         const toShowCountdown = () => {
-            props.navigation.navigate('Countdown', {
-                key: item.key,
-            });
+            props.navigation.navigate('Countdown', { id: item.id });
         };
 
         return (
@@ -69,7 +68,7 @@ class Home extends Component {
                     <AntDesign style={{ marginRight: 12 }} name="clockcircle" color='#000' size={20} />
                     <Text style={[typ.h3]}>{ item.title }</Text>
                 </View>
-                <Text style={[typ.gray]}>{ durationHelper.parse(item.duration) }</Text>
+                <Text style={[typ.gray]}>{ durationHelper.parse(item.counter.duration) }</Text>
             </Card>
         );
     }

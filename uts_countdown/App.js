@@ -3,8 +3,9 @@ import * as Font from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import Navigator from './src/Navigator.jsx';
-// import './src/database/sqlite.js';
+import { countdownHelper } from './src/helper/index.js';
 
+countdownHelper.runtime();
 class App extends Component {
     state = {
         fontLoaded: false,

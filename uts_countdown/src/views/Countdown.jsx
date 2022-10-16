@@ -7,14 +7,19 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons.js';
 import { btn, typ } from '../styles/index.js';
-import { events } from '../helper/index.js';
+import { events, durationHelper } from '../helper/index.js';
 
 class Countdown extends Component {
+    interval = null;
+
     state = {
         data: {
-            key: null,
+            id: null,
             title: '-',
             duration: 0,
+            counter: {
+                duration: 0,
+            },
         },
     };
 
@@ -22,11 +27,15 @@ class Countdown extends Component {
         super(props);
         const { params } = props.route;
         this.navigation = props.navigation;
-        this._loadCountdownData(params.key);
+        this._loadCountdownData(params.id);
+
+        setInterval(() => {
+            this._loadCountdownData(params.id);
+        }, 1000);
     }
 
-    async _loadCountdownData(key) {
-        const data = await AsyncStorage.getItem(`countdown:${key}`);
+    async _loadCountdownData(id) {
+        const data = await AsyncStorage.getItem(`countdown:${id}`);
         if (data) this.setState({ data: JSON.parse(data) });
     }
 
@@ -35,7 +44,7 @@ class Countdown extends Component {
     }
 
     async _delete() {
-        await AsyncStorage.removeItem(`countdown:${this.state.data.key}`);
+        await AsyncStorage.removeItem(`countdown:${this.state.data.id}`);
         events.emit('render:countdown-list');
         this._toHome();
     }
@@ -61,7 +70,9 @@ class Countdown extends Component {
                 </View>
 
                 <View>
-                    <Text style={[typ.h1, typ.center, st.counter]}>{ this.state.data.duration }</Text>
+                    <Text style={[typ.h1, typ.center, st.counter]}>
+                        { durationHelper.parseMaster(this.state.data.counter.duration) }
+                    </Text>
                 </View>
 
                 <View style={st.footer}>

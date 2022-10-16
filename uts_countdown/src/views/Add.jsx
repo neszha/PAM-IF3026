@@ -9,21 +9,11 @@ import { StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { btn, typ, form } from '../styles/index.js';
 import { events } from '../helper/index.js';
 
-// TaskManager.defineTask('task', async () => {
-//     const now = Date.now();
-//     console.log(`Got background fetch call at date: ${new Date(now).toISOString()}`);
-//     setInterval(() => {
-//         console.log('interval');
-//     }, 1000);
-//     // return BackgroundFetch.BackgroundFetchResult.NewData;
-//     return 'asdfasdf';
-// });
-
 class Add extends Component {
     state = {
         data: {
             title: 'Fanesa Hadi Pramana',
-            duration: 10, // minute
+            duration: 1, // minute -> ms
         },
         disabled: false,
     };
@@ -31,16 +21,6 @@ class Add extends Component {
     constructor(props) {
         super(props);
         this.navigation = props.navigation;
-        // BackgroundFetch.registerTaskAsync('task', {
-        //     minimumInterval: 1, // 15 minutes
-        //     stopOnTerminate: false, // android only,
-        //     startOnBoot: true, // android only
-        // });
-        // setInterval(async () => {
-        //     const status = await BackgroundFetch.getStatusAsync();
-        //     const isRegistered = await TaskManager.isTaskRegisteredAsync('task');
-        //     console.log({ status, isRegistered });
-        // }, 1000);
     }
 
     _toHome() {
@@ -50,10 +30,13 @@ class Add extends Component {
     async _addCountdown() {
         const key = Random.getRandomBytes(10).join('');
         const body = {
-            key,
-            status: 'play', // [play|end]
+            id: key,
+            status: 'play', // [play|pause|end]
             ...this.state.data,
+            createdAt: new Date().getTime(),
         };
+        body.duration *= (60 * 1000);
+        body.counter = { duration: body.duration };
         const storegKey = `countdown:${key}`;
         await AsyncStorage.setItem(storegKey, JSON.stringify(body));
         events.emit('render:countdown-list');
@@ -64,7 +47,6 @@ class Add extends Component {
         const { data } = this.state;
         if (data.title && data.duration > 0) this.setState({ disabled: false });
         else this.setState({ disabled: true });
-        console.log(this.state);
     }
 
     render() {
@@ -125,7 +107,7 @@ class Add extends Component {
 const st = StyleSheet.create({
     container: {
         flex: 1,
-        // minHeight: 700,
+        minHeight: 700,
         position: 'relative',
         backgroundColor: '#fff',
     },
