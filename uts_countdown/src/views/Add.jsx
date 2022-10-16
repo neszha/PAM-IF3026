@@ -11,7 +11,7 @@ class Add extends Component {
     state = {
         data: {
             title: '',
-            duration: 0, // minute -> ms
+            duration: '', // minute -> ms
         },
         disabled: true,
     };
