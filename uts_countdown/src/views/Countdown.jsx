@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { View, Text } from 'react-native-ui-lib';
 import Feather from 'react-native-vector-icons/Feather.js';
 import { StyleSheet, TouchableOpacity } from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign.js';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5.js';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons.js';
 import { btn, typ } from '../styles/index.js';
@@ -11,8 +12,11 @@ class Countdown extends Component {
         return (
             <View style={st.container}>
 
-                <View style={st.titleWrapper}>
-                    <Text style={[typ.h2, typ.center]}>KUIS PAM - RA</Text>
+                <View style={st.header}>
+                    <View style={[st.headerContent, { flexDirection: 'row', alignItems: 'center' }]}>
+                        <AntDesign style={{ position: 'absolute', left: 14, top: 14 }} name='arrowleft' color='#000' size={24} />
+                        <Text style={[typ.h2, typ.center, { flex: 1 }]}>UIS PAM - RA</Text>
+                    </View>
                 </View>
 
                 <View>
@@ -51,8 +55,13 @@ const st = StyleSheet.create({
         minHeight: 700,
         justifyContent: 'space-between',
     },
-    titleWrapper: {
-        paddingTop: 52,
+    header: {
+        backgroundColor: '#fff',
+        paddingTop: 32,
+    },
+    headerContent: {
+        paddingVertical: 12,
+        paddingHorizontal: 20,
     },
     counter: {
         fontSize: 55,
