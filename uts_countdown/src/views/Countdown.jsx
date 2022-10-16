@@ -20,6 +20,7 @@ class Countdown extends Component {
             counter: {
                 duration: 0,
             },
+            color: '#616161',
         },
     };
 
@@ -29,14 +30,22 @@ class Countdown extends Component {
         this.navigation = props.navigation;
         this._loadCountdownData(params.id);
 
-        setInterval(() => {
+        this.interval = setInterval(() => {
             this._loadCountdownData(params.id);
         }, 1000);
     }
 
+    componentWillUnmount() {
+        if (this.interval) clearInterval(this.interval);
+    }
+
     async _loadCountdownData(id) {
-        const data = await AsyncStorage.getItem(`countdown:${id}`);
-        if (data) this.setState({ data: JSON.parse(data) });
+        const dataString = await AsyncStorage.getItem(`countdown:${id}`);
+        const data = JSON.parse(dataString);
+        const minute10 = 10 * 60 * 1000;
+        if (data.counter.duration <= minute10) data.color = '#fa983a';
+        if (data.counter.duration <= 0) data.color = '#eb2f06';
+        if (data) this.setState({ data });
     }
 
     _toHome() {
@@ -70,7 +79,7 @@ class Countdown extends Component {
                 </View>
 
                 <View>
-                    <Text style={[typ.h1, typ.center, st.counter]}>
+                    <Text style={[typ.h1, typ.center, st.counter, { color: this.state.data.color }]}>
                         { durationHelper.parseMaster(this.state.data.counter.duration) }
                     </Text>
                 </View>

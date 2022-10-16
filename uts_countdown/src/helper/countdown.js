@@ -1,3 +1,5 @@
+import delay from 'delay';
+import { Audio } from 'expo-av';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default {
@@ -15,6 +17,16 @@ export default {
         return array;
     },
 
+    async save(id, data) {
+        await AsyncStorage.setItem(`countdown:${id}`, JSON.stringify(data));
+    },
+
+    async playSound() {
+        const { sound } = await Audio.Sound.createAsync(require('../assets/audios/alarm.mp3'));
+        await delay(500);
+        await sound.playAsync();
+    },
+
     runtime() {
         return setInterval(async () => {
             const array = await this.getValues();
@@ -24,8 +36,14 @@ export default {
                 if (item.counter.duration <= 0) {
                     item.status = 'end';
                     item.counter.duration = 0;
+                    item.state.playingSound = true;
+                    this.playSound();
+                    setTimeout(() => {
+                        item.state.playingSound = false;
+                        this.save(item.id, item);
+                    }, 10 * 1000);
                 }
-                AsyncStorage.setItem(`countdown:${item.id}`, JSON.stringify(item));
+                this.save(item.id, item);
             });
         }, 1000);
     },

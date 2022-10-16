@@ -28,6 +28,13 @@ class Home extends Component {
 
     async _getCountdownList() {
         const array = await countdownHelper.getValues();
+        array.sort((a, b) => a.counter.duration - b.counter.duration);
+        array.forEach((item) => {
+            const minute10 = 10 * 60 * 1000;
+            item.color = '#616161';
+            if (item.counter.duration <= minute10) item.color = '#fa983a';
+            if (item.counter.duration <= 0) item.color = '#eb2f06';
+        });
         await this.setState({ list: array });
     }
 
@@ -61,14 +68,15 @@ class Home extends Component {
         const toShowCountdown = () => {
             props.navigation.navigate('Countdown', { id: item.id });
         };
+        const borderColor = item.state.playingSound ? '#eb2f06' : '#fff';
 
         return (
-            <Card style={st.card} onPress={() => toShowCountdown()}>
+            <Card style={[st.card, { borderColor }]} onPress={() => toShowCountdown()}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <AntDesign style={{ marginRight: 12 }} name="clockcircle" color='#000' size={20} />
                     <Text style={[typ.h3]}>{ item.title }</Text>
                 </View>
-                <Text style={[typ.gray]}>{ durationHelper.parse(item.counter.duration) }</Text>
+                <Text style={{ color: item.color }}>{ durationHelper.parse(item.counter.duration) }</Text>
             </Card>
         );
     }
@@ -98,6 +106,7 @@ const st = StyleSheet.create({
         paddingHorizontal: 24,
         marginBottom: 20,
         shadowColor: '#000',
+        borderWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',

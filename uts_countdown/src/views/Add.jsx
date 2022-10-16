@@ -12,8 +12,8 @@ import { events } from '../helper/index.js';
 class Add extends Component {
     state = {
         data: {
-            title: 'Fanesa Hadi Pramana',
-            duration: 1, // minute -> ms
+            title: 'Fanesa Hadi P.',
+            duration: 0.1, // minute -> ms
         },
         disabled: false,
     };
@@ -36,7 +36,12 @@ class Add extends Component {
             createdAt: new Date().getTime(),
         };
         body.duration *= (60 * 1000);
-        body.counter = { duration: body.duration };
+        body.counter = {
+            duration: body.duration,
+        };
+        body.state = {
+            playingSound: false,
+        };
         const storegKey = `countdown:${key}`;
         await AsyncStorage.setItem(storegKey, JSON.stringify(body));
         events.emit('render:countdown-list');
