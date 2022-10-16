@@ -39,7 +39,7 @@ class Add extends Component {
                 </View>
 
                 <View style={st.footer}>
-                    <Button style={[btn.btnDark, btn.btnLg]} label="Tambah & Mulai" />
+                    <Button style={[btn.dark, btn.lg]} label="Tambah & Mulai" />
                 </View>
 
             </View>

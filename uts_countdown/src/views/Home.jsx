@@ -35,7 +35,7 @@ class Home extends Component {
                 </View>
 
                 <View style={st.footer}>
-                    <Button style={[btn.btnDark, btn.btnLg]} label="Tambah" />
+                    <Button style={[btn.dark, btn.lg]} label="Tambah" />
                 </View>
 
             </View>

@@ -17,7 +17,7 @@ class Welcome extends Component {
                 <View>
                     <Text style={[typ.h1, st.textBanner]}>Buat hitungan mundur dengan mudah.</Text>
                     <View style={st.btnWrapper}>
-                        <Button style={[btn.btnDark, btn.btnLg]} label="Mulai" />
+                        <Button style={[btn.dark, btn.lg]} label="Mulai" />
                     </View>
                 </View>
 
