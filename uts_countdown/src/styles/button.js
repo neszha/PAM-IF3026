@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
 
 const button = StyleSheet.create({
-    btnDark: {
+    dark: {
         backgroundColor: '#1E272E',
         color: '#FFF',
     },
-    btnLg: {
+    lg: {
         paddingVertical: 12,
     },
 });

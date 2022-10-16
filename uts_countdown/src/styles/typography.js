@@ -21,6 +21,12 @@ const typography = StyleSheet.create({
     gray: {
         color: '#616161',
     },
+    light: {
+        color: '#fff',
+    },
+    center: {
+        textAlign: 'center',
+    },
 });
 
 export default typography;
