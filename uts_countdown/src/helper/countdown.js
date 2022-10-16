@@ -21,6 +21,10 @@ export default {
         await AsyncStorage.setItem(`countdown:${id}`, JSON.stringify(data));
     },
 
+    async delete(id) {
+        await AsyncStorage.removeItem(`countdown:${id}`);
+    },
+
     async playSound() {
         const { sound } = await Audio.Sound.createAsync(require('../assets/audios/alarm.mp3'));
         await delay(500);

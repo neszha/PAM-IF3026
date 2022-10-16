@@ -13,7 +13,7 @@ class Navigator extends Component {
     render() {
         return (
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="Home" screenOptions={options}>
+                <Stack.Navigator initialRouteName="Welcome" screenOptions={options}>
                     <Stack.Screen name="Welcome" component={Welcome} />
                     <Stack.Screen name="Home" component={Home} />
                     <Stack.Screen name="Add" component={Add} />

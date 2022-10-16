@@ -18,6 +18,11 @@ const typography = StyleSheet.create({
         fontSize: 18,
         color,
     },
+    span: {
+        fontFamily: 'Urbanist-Regular',
+        fontSize: 14,
+        marginBottom: 4,
+    },
     gray: {
         color: '#616161',
     },

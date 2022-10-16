@@ -14,6 +14,7 @@ class App extends Component {
     async _loadFonts() {
         const fonts = {
             'Urbanist-Black': require('./src/assets/fonts/urbanist/Urbanist-Black.ttf'),
+            'Urbanist-Regular': require('./src/assets/fonts/urbanist/Urbanist-Regular.ttf'),
         };
         await Font.loadAsync(fonts);
         this.setState({ fontLoaded: true });
@@ -24,9 +25,7 @@ class App extends Component {
     }
 
     render() {
-        // Waiting fonts loaded.
         if (!this.state.fontLoaded) return null;
-
         return (
             <View style={st.container}>
                 <StatusBar style="auto" />

@@ -1,9 +1,12 @@
 import { Component } from 'react';
-import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
+import {
+    StyleSheet, SafeAreaView, FlatList, TouchableOpacity,
+} from 'react-native';
 import {
     View, Text, Button, Card,
 } from 'react-native-ui-lib';
 import AntDesign from 'react-native-vector-icons/AntDesign.js';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons.js';
 import { btn, typ } from '../styles/index.js';
 import { durationHelper, events, countdownHelper } from '../helper/index.js';
 
@@ -38,7 +41,18 @@ class Home extends Component {
         await this.setState({ list: array });
     }
 
+    async _clearDoneCountdown() {
+        const array = this.state.list.filter((item) => item.status === 'end');
+        const promises = [];
+        array.forEach((item) => {
+            promises.push(countdownHelper.delete(item.id));
+        });
+        await Promise.all(promises);
+        this._getCountdownList();
+    }
+
     render() {
+        const display = this.state.list.length ? 'none' : 'flex';
         return (
             <View style={st.container}>
 
@@ -46,6 +60,11 @@ class Home extends Component {
                     <View style={st.headerContent}>
                         <Text style={[typ.h2]}>Daftar Hitungan</Text>
                     </View>
+                    <TouchableOpacity style={{
+                        position: 'absolute', right: 22, bottom: 15, zIndex: 2,
+                    }} activeOpacity={0.6} onPress={() => this._clearDoneCountdown()}>
+                        <MaterialIcons name='layers-clear' color='#000' size={24} />
+                    </TouchableOpacity>
                 </View>
 
                 <SafeAreaView style={st.cardListContainer}>
@@ -55,6 +74,11 @@ class Home extends Component {
                         keyExtractor={(item) => item.id}
                     />
                 </SafeAreaView>
+
+                <View style={{ paddingHorizontal: 12, marginTop: 32, display }}>
+                    <Text style={[typ.span, typ.center, typ.gray]}>Ups... Tidak ada data!</Text>
+                    <Text style={[typ.span, typ.center, typ.gray]}>Tambahkan dengan menekan tombol di bawah!</Text>
+                </View>
 
                 <View style={st.footer}>
                     <Button style={[btn.dark, btn.lg]} label="Tambah" onPress={() => this.navigation.navigate('Add')}/>
@@ -92,6 +116,7 @@ const st = StyleSheet.create({
         paddingTop: 32,
         borderBottomWidth: 1,
         borderBottomColor: '#E3E3E3',
+        position: 'relative',
     },
     headerContent: {
         paddingVertical: 12,

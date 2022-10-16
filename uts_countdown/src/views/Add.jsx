@@ -1,19 +1,17 @@
 import { Component } from 'react';
 import * as Random from 'expo-random';
-// import * as TaskManager from 'expo-task-manager';
-// import * as BackgroundFetch from 'expo-background-fetch';
 import { View, Text, Button } from 'react-native-ui-lib';
 import AntDesign from 'react-native-vector-icons/AntDesign.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import { btn, typ, form } from '../styles/index.js';
 import { events } from '../helper/index.js';
+import { btn, typ, form } from '../styles/index.js';
 
 class Add extends Component {
     state = {
         data: {
-            title: 'Fanesa Hadi P.',
-            duration: 0.1, // minute -> ms
+            title: '',
+            duration: 0, // minute -> ms
         },
         disabled: true,
     };

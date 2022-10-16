@@ -1,11 +1,10 @@
 import { Component } from 'react';
 import { View, Text } from 'react-native-ui-lib';
-import { StyleSheet, TouchableOpacity } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather.js';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign.js';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons.js';
 import { btn, typ } from '../styles/index.js';
 import { events, durationHelper, countdownHelper } from '../helper/index.js';
 
@@ -86,11 +85,6 @@ class Countdown extends Component {
                             <AntDesign name='arrowleft' color='#000' size={24} />
                         </TouchableOpacity>
                         <Text style={[typ.h2, typ.center, { flex: 1 }]}>{ this.state.data.title }</Text>
-                        <TouchableOpacity style={{
-                            position: 'absolute', right: 20, top: 15, zIndex: 2,
-                        }} activeOpacity={0.6} onPress={() => this._delete()}>
-                            <Feather name='trash' color='#000' size={24} />
-                        </TouchableOpacity>
                     </View>
                 </View>
 
@@ -109,8 +103,8 @@ class Countdown extends Component {
 
                         { this.renderPlayButton() }
 
-                        <TouchableOpacity style={{ padding: 12 }} onPress={() => console.log('Pressed!')}>
-                            <MaterialIcons name='fullscreen' size={30} />
+                        <TouchableOpacity style={{ padding: 12 }} onPress={() => this._delete()}>
+                            <Feather name='trash' size={30} />
                         </TouchableOpacity>
 
                     </View>
