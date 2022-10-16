@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "Countdown",
-    "slug": "uts",
-    "version": "0.1.0",
+    "slug": "countdown",
+    "version": "0.1.5",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
@@ -22,12 +22,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/adaptive-icon.png",
+        "foregroundImage": "./src/assets/icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.neszha.countdown"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3664dc62-9097-4711-b662-d82c257c1b37"
+      }
     }
   }
 }
