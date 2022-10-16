@@ -8,13 +8,26 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons.js';
 import { btn, typ } from '../styles/index.js';
 
 class Countdown extends Component {
+    constructor(props) {
+        super(props);
+        this.navigation = props.navigation;
+    }
+
+    _toHome() {
+        this.navigation.navigate('Home');
+    }
+
     render() {
         return (
             <View style={st.container}>
 
                 <View style={st.header}>
                     <View style={[st.headerContent, { flexDirection: 'row', alignItems: 'center' }]}>
-                        <AntDesign style={{ position: 'absolute', left: 14, top: 14 }} name='arrowleft' color='#000' size={24} />
+                        <TouchableOpacity style={{
+                            position: 'absolute', left: 20, top: 15, zIndex: 2,
+                        }} activeOpacity={0.6} onPress={() => this._toHome()}>
+                            <AntDesign name='arrowleft' color='#000' size={24} />
+                        </TouchableOpacity>
                         <Text style={[typ.h2, typ.center, { flex: 1 }]}>UIS PAM - RA</Text>
                     </View>
                 </View>
@@ -54,6 +67,7 @@ const st = StyleSheet.create({
         position: 'relative',
         minHeight: 700,
         justifyContent: 'space-between',
+        backgroundColor: '#fff',
     },
     header: {
         backgroundColor: '#fff',

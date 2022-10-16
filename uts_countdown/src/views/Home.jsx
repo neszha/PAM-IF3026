@@ -7,6 +7,19 @@ import AntDesign from 'react-native-vector-icons/AntDesign.js';
 import { btn, typ } from '../styles/index.js';
 
 class Home extends Component {
+    constructor(props) {
+        super(props);
+        this.navigation = props.navigation;
+    }
+
+    _toAddCountdown() {
+        this.navigation.navigate('Add');
+    }
+
+    _toShowCountdown() {
+        this.navigation.navigate('Countdown');
+    }
+
     render() {
         return (
             <View style={st.container}>
@@ -18,14 +31,14 @@ class Home extends Component {
                 </View>
 
                 <View style={st.cardListContainer}>
-                    <Card style={st.card} onPress={() => console.log('pressed')}>
+                    <Card style={st.card} onPress={() => this._toShowCountdown()}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <AntDesign style={{ marginRight: 12 }} name="clockcircle" color='#000' size={20} />
                             <Text style={[typ.h3]}>KUIS 1 PAM - RA</Text>
                         </View>
                         <Text style={[typ.gray]}>00.00.00:56</Text>
                     </Card>
-                    <Card style={st.card} onPress={() => console.log('pressed')}>
+                    <Card style={st.card} onPress={() => this._toShowCountdown()}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <AntDesign style={{ marginRight: 12 }} name="clockcircle" color='#000' size={20} />
                             <Text style={[typ.h3]}>KUIS 1 PAM - RB</Text>
@@ -35,7 +48,7 @@ class Home extends Component {
                 </View>
 
                 <View style={st.footer}>
-                    <Button style={[btn.dark, btn.lg]} label="Tambah" />
+                    <Button style={[btn.dark, btn.lg]} label="Tambah" onPress={() => this._toAddCountdown()}/>
                 </View>
 
             </View>
@@ -73,7 +86,6 @@ const st = StyleSheet.create({
     },
     footer: {
         width: '100%',
-        backgroundColor: '#fff',
         position: 'absolute',
         zIndex: 2,
         bottom: 0,

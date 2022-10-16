@@ -6,6 +6,15 @@ import { btn, typ } from '../styles/index.js';
 import logo from '../assets/logo.png';
 
 class Welcome extends Component {
+    constructor(props) {
+        super(props);
+        this.navigation = props.navigation;
+    }
+
+    _toHome() {
+        this.navigation.navigate('Home');
+    }
+
     render() {
         return (
             <View style={st.container}>
@@ -17,7 +26,7 @@ class Welcome extends Component {
                 <View>
                     <Text style={[typ.h1, st.textBanner]}>Buat hitungan mundur dengan mudah.</Text>
                     <View style={st.btnWrapper}>
-                        <Button style={[btn.dark, btn.lg]} label="Mulai" />
+                        <Button style={[btn.dark, btn.lg]} label="Mulai" onPress={() => this._toHome()} />
                     </View>
                 </View>
 
