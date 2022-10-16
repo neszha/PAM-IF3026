@@ -7,7 +7,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons.js';
 import { btn, typ } from '../styles/index.js';
-import { events, durationHelper } from '../helper/index.js';
+import { events, durationHelper, countdownHelper } from '../helper/index.js';
 
 class Countdown extends Component {
     interval = null;
@@ -15,6 +15,7 @@ class Countdown extends Component {
     state = {
         data: {
             id: null,
+            status: 'play',
             title: '-',
             duration: 0,
             counter: {
@@ -52,6 +53,21 @@ class Countdown extends Component {
         this.navigation.navigate('Home');
     }
 
+    async _playToggle(status = 'play') {
+        const data = { ...this.state.data };
+        if (data.counter.duration <= 0) return;
+        data.status = status;
+        await countdownHelper.save(data.id, data);
+        this._loadCountdownData(data.id);
+    }
+
+    async _reset() {
+        const data = JSON.parse(JSON.stringify(this.state.data));
+        data.counter.duration = data.duration;
+        await countdownHelper.save(data.id, data);
+        this._loadCountdownData(data.id);
+    }
+
     async _delete() {
         await AsyncStorage.removeItem(`countdown:${this.state.data.id}`);
         events.emit('render:countdown-list');
@@ -87,15 +103,11 @@ class Countdown extends Component {
                 <View style={st.footer}>
                     <View style={st.controlWrapper}>
 
-                        <TouchableOpacity style={{ padding: 12 }} onPress={() => console.log('Pressed!')}>
+                        <TouchableOpacity style={{ padding: 12 }} onPress={() => this._reset()}>
                             <Feather name='refresh-cw' size={30} />
                         </TouchableOpacity>
 
-                        <TouchableOpacity activeOpacity={0.8} onPress={() => console.log('Pressed!')}>
-                            <View style={[btn.dark, st.btnPlay]}>
-                                <FontAwesome5 style={st.btnPlayIcon} name="play" size={30} />
-                            </View>
-                        </TouchableOpacity>
+                        { this.renderPlayButton() }
 
                         <TouchableOpacity style={{ padding: 12 }} onPress={() => console.log('Pressed!')}>
                             <MaterialIcons name='fullscreen' size={30} />
@@ -105,6 +117,25 @@ class Countdown extends Component {
                 </View>
 
             </View>
+        );
+    }
+
+    renderPlayButton() {
+        if (this.state.data.status === 'play') {
+            return (
+                <TouchableOpacity activeOpacity={0.8} onPress={() => this._playToggle('pause')}>
+                    <View style={[btn.dark, st.btnPlay]}>
+                        <FontAwesome5 style={{ color: '#fff' }} name="pause" size={30} />
+                    </View>
+                </TouchableOpacity>
+            );
+        }
+        return (
+            <TouchableOpacity activeOpacity={0.8} onPress={() => this._playToggle('play')}>
+                <View style={[btn.dark, st.btnPlay]}>
+                    <FontAwesome5 style={{ color: '#fff', marginLeft: 8 }} name="play" size={30} />
+                </View>
+            </TouchableOpacity>
         );
     }
 }
@@ -137,10 +168,10 @@ const st = StyleSheet.create({
         alignItems: 'center',
         color: '#fff',
     },
-    btnPlayIcon: {
-        color: '#fff',
-        marginLeft: 8,
-    },
+    // btnPlayIcon: {
+    //     color: '#fff',
+    //     marginLeft: 8,
+    // },
     footer: {
         paddingBottom: 32,
         alignItems: 'center',

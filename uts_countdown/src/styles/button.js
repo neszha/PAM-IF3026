@@ -5,6 +5,10 @@ const button = StyleSheet.create({
         backgroundColor: '#1E272E',
         color: '#FFF',
     },
+    orange: {
+        backgroundColor: '#fa983a',
+        color: '#FFF',
+    },
     lg: {
         paddingVertical: 12,
     },

@@ -15,7 +15,7 @@ class Add extends Component {
             title: 'Fanesa Hadi P.',
             duration: 0.1, // minute -> ms
         },
-        disabled: false,
+        disabled: true,
     };
 
     constructor(props) {
@@ -27,11 +27,11 @@ class Add extends Component {
         this.navigation.navigate('Home');
     }
 
-    async _addCountdown() {
+    async _addCountdown(autoPlay = false) {
         const key = Random.getRandomBytes(10).join('');
         const body = {
             id: key,
-            status: 'play', // [play|pause|end]
+            status: autoPlay ? 'play' : 'pause', // [play|pause|end]
             ...this.state.data,
             createdAt: new Date().getTime(),
         };
@@ -104,8 +104,20 @@ class Add extends Component {
     }
 
     renderAddButton() {
-        if (!this.state.disabled) return <Button style={[btn.dark, btn.lg]} label="Tambah & Mulai" onPress={() => this._addCountdown()} />;
-        return <Button disabled style={[btn.dark, btn.lg, { opacity: 0.7 }]} label="Tambah & Mulai" />;
+        if (!this.state.disabled) {
+            return (
+                <View>
+                    <Button style={[btn.dark, btn.lg, { marginBottom: 12 }]} label="Tambahkan" onPress={() => this._addCountdown(false)} />
+                    <Button style={[btn.orange, btn.lg]} label="Tambah & Mulai" onPress={() => this._addCountdown(true)} />
+                </View>
+            );
+        }
+        return (
+            <View>
+                <Button disabled style={[btn.dark, btn.lg, { marginBottom: 12, opacity: 0.8 }]} label="Tambahkan" />
+                <Button disabled style={[btn.orange, btn.lg, { opacity: 0.8 }]} label="Tambah & Mulai" />
+            </View>
+        );
     }
 }
 
