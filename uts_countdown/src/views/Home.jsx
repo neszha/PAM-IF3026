@@ -1,23 +1,30 @@
 import { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import {
     View, Text, Button, Card,
 } from 'react-native-ui-lib';
 import AntDesign from 'react-native-vector-icons/AntDesign.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { btn, typ } from '../styles/index.js';
+import { durationHelper } from '../helper/index.js';
 
 class Home extends Component {
+    state = {
+        list: [],
+    };
+
     constructor(props) {
         super(props);
         this.navigation = props.navigation;
+        this._getCountdownList();
     }
 
-    _toAddCountdown() {
-        this.navigation.navigate('Add');
-    }
-
-    _toShowCountdown() {
-        this.navigation.navigate('Countdown');
+    async _getCountdownList() {
+        const allKeys = await AsyncStorage.getAllKeys();
+        const keys = allKeys.filter((item) => item.includes('countdown:'));
+        const values = await AsyncStorage.multiGet(keys);
+        const array = values.map((item) => JSON.parse(item[1]));
+        await this.setState({ list: array });
     }
 
     render() {
@@ -30,28 +37,35 @@ class Home extends Component {
                     </View>
                 </View>
 
-                <View style={st.cardListContainer}>
-                    <Card style={st.card} onPress={() => this._toShowCountdown()}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <AntDesign style={{ marginRight: 12 }} name="clockcircle" color='#000' size={20} />
-                            <Text style={[typ.h3]}>KUIS 1 PAM - RA</Text>
-                        </View>
-                        <Text style={[typ.gray]}>00.00.00:56</Text>
-                    </Card>
-                    <Card style={st.card} onPress={() => this._toShowCountdown()}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <AntDesign style={{ marginRight: 12 }} name="clockcircle" color='#000' size={20} />
-                            <Text style={[typ.h3]}>KUIS 1 PAM - RB</Text>
-                        </View>
-                        <Text style={[typ.gray]}>00.00:56</Text>
-                    </Card>
-                </View>
+                <SafeAreaView style={st.cardListContainer}>
+                    <FlatList
+                        data={this.state.list}
+                        renderItem={(item) => this.renderList(item, this.props)}
+                        keyExtractor={(item) => item.key}
+                    />
+                </SafeAreaView>
 
                 <View style={st.footer}>
-                    <Button style={[btn.dark, btn.lg]} label="Tambah" onPress={() => this._toAddCountdown()}/>
+                    <Button style={[btn.dark, btn.lg]} label="Tambah" onPress={() => this.navigation.navigate('Add')}/>
                 </View>
 
             </View>
+        );
+    }
+
+    renderList({ item }, props) {
+        const toShowCountdown = () => {
+            props.navigation.navigate('Countdown');
+        };
+
+        return (
+            <Card style={st.card} onPress={() => toShowCountdown()}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <AntDesign style={{ marginRight: 12 }} name="clockcircle" color='#000' size={20} />
+                    <Text style={[typ.h3]}>{ item.title }</Text>
+                </View>
+                <Text style={[typ.gray]}>{ durationHelper.parse(item.duration) }</Text>
+            </Card>
         );
     }
 }

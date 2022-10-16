@@ -1,6 +1,6 @@
 import { Component } from 'react';
-import { StyleSheet, Text, Image } from 'react-native';
 import { View, Button } from 'react-native-ui-lib';
+import { StyleSheet, Text, Image } from 'react-native';
 import { btn, typ } from '../styles/index.js';
 
 import logo from '../assets/logo.png';
